@@ -1,0 +1,197 @@
+﻿:root {
+    --bg: #fafafa;
+    --fg: #1f2937;
+    --muted: #6b7280;
+    --brand: #2563eb;
+    --ok: #10b981;
+    --shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; overflow-x: hidden; } /* ← 新增，禁用横向滚动 */
+
+body {
+    margin: 0;
+    color: var(--fg);
+    background: var(--bg);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+    box-shadow: var(--shadow);
+    padding: 16px 20px;
+}
+
+.site-title { margin: 0; font-size: 20px; font-weight: 700;font-family: "楷体"; }
+.site-sub   { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+.container {
+    padding: 18px;
+    width: 100%;
+    max-width: 1400px; 
+    margin: 0 auto;
+}
+
+.route-bar {
+    margin: 8px 0 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.route-bar label {
+    font-weight: 600;
+}
+
+.route-bar select {
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    background: #ffffff;
+}
+
+.route-status {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+
+.map-wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden; /* ← 新增，避免图片/徽章层偶发溢出 */
+}
+
+#campus-map {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.pins {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    pointer-events: none;
+}
+.pin .dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: var(--shadow);
+    display: grid;
+    place-items: center;
+}
+.pin .dot::after {
+    content: "✓";
+    font-size: 12px;
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--ok);
+    display: grid;
+    place-items: center;
+}
+
+dialog {
+    border: none;
+    border-radius: 14px;
+    padding: 0;
+    box-shadow: var(--shadow);
+    width: min(720px, 92vw);
+}
+dialog::backdrop { background: rgba(0,0,0,.25); }
+
+.modal {
+    display: grid;
+    grid-template-columns: 1.1fr 1.2fr;
+    gap: 0;
+    overflow: hidden;
+}
+.modal .left {
+    background: #0b1220;
+    color: white;
+    display: grid;
+    place-items: center;
+    min-height: 260px;
+}
+.modal .left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.modal .right { padding: 18px 18px 14px; background: white; }
+.modal h2 { margin: 0 0 10px; font-size: 20px; }
+
+.short { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+.full  { font-size: 15px; color: var(--fg); line-height: 1.4; max-height: 38vh; overflow: auto; padding-right: 6px;font-family: "楷体"; }
+
+.actions { display: flex; gap: 10px; margin-top: 12px; }
+.btn { appearance: none; border: 0; padding: 10px 14px; border-radius: 999px; font-weight: 600; cursor: pointer; box-shadow: var(--shadow); }
+.btn.primary { background: var(--brand); color: white; }
+.btn.ghost   { background: #eef2ff; color: #374151; }
+
+.devbar {
+    display: flex; gap: 12px; align-items: center;
+    margin: 10px 0 0; font-size: 12px; color: var(--muted); flex-wrap: wrap;
+}
+.chip { background: white; border-radius: 999px; padding: 6px 10px; box-shadow: var(--shadow); }
+
+@media (max-width: 720px) {
+    .modal { grid-template-columns: 1fr; }
+    .modal .left { height: 32vh; }
+}
+
+/* 移动端触摸优化 */
+/* 移动端触摸优化 - 允许缩放 */
+#campus-map {
+  -webkit-tap-highlight-color: transparent; /* 改善点击反馈 */
+  touch-action: auto;
+}
+
+/* 移动端弹窗优化 */
+@media (max-width: 720px) {
+  .modal { 
+    grid-template-columns: 1fr; 
+  }
+  .modal .left { 
+    height: 35vh;
+  }
+  .modal .right {
+    padding: 16px;
+  }
+  .modal h2 {
+    font-size: 18px;
+    margin: 0 0 8px;
+  }
+  .short {
+    font-size: 13px;
+  }
+  .full {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+/* === Desktop viewport height fix === */
+@media (min-width: 900px) {
+  html, body { height: 100%; }
+  #map-viewport { height: 100vh; }
+}

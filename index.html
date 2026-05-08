@@ -1,0 +1,86 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+  <title>校园文脉地图</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js?v=2"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">东秦校园文脉地图</h1>
+    <p class="site-sub">点击地图上的地标，查看相应的文化介绍；支持打卡功能与勋章显示。</p>
+  </header>
+
+  <main class="container">
+    <section class="route-bar">
+      <label for="routeSelect">路线模式：</label>
+      <select id="routeSelect">
+        <option value="">不限路线（自由浏览）</option>
+        <option value="freshman">新生入门路线</option>
+        <option value="history">校史文化与人文路线</option>
+        <option value="photo">校园自然与摄影路线</option>
+      </select>
+      <span class="route-status" id="routeStatus"></span>
+    </section>
+    <section class="map-wrap">
+      <!-- 底图：注意 width/height 与底图像素一致；内联样式保证等比缩放与不溢出 -->
+      <img id="campus-map"
+           width="8268" height="6865"
+           src="assets/images/campus-map.jpg"
+           alt="校园平面图" usemap="#campusmap"
+           style="max-width:100%;width:100%;height:auto;display:block;" />
+
+      <map name="campusmap" id="campusmap">
+        <area target="" alt="1" title="1" href="" coords="3927,2074,4124,2279" shape="rect">
+        <area target="" alt="2" title="2" href="" coords="4278,1994,4679,2155" shape="rect">
+        <area target="" alt="3" title="3" href="" coords="4592,1870,5183,1972" shape="rect">
+        <area target="" alt="4" title="4" href="" coords="4738,2089,5030,2169" shape="rect">
+        <area target="" alt="5" title="5" href="" coords="4738,2225,5023,2926" shape="rect">
+        <area target="" alt="6" title="6" href="" coords="5081,2469,5410,2710" shape="rect">
+        <area target="" alt="7" title="7" href="" coords="6140,2257,6330,2454" shape="rect">
+        <area target="" alt="8" title="8" href="" coords="6403,2293,6476,2527" shape="rect">
+        <area target="" alt="9" title="9" href="" coords="6374,2612,6483,2824" shape="rect">
+        <area target="" alt="10" title="10" href="" coords="6542,2284,6783,2415" shape="rect">
+        <area target="" alt="11" title="11" href="" coords="6622,2612,6841,2831" shape="rect">
+        <area target="" alt="12" title="12" href="" coords="6878,2590,6965,3101" shape="rect">
+        <area target="" alt="13" title="13" href="" coords="3847,3262,4022,3635" shape="rect">
+        <area target="" alt="14" title="14" href="" coords="5198,3021,202" shape="circle">
+        <area target="" alt="15" title="15" href="" coords="6169,2617,6337,2924" shape="rect">
+        <area target="" alt="16" title="16" href="" coords="2108,4336,3051,4752,2495,4664" shape="poly">
+        <area target="" alt="17" title="17" href="" coords="2116,4789,2642,5066" shape="rect">
+        <!-- 如需更多地标，继续在这里追加 <area> ... -->
+      </map>
+
+      <!-- 打卡 ✓ 徽章层（脚本自动填充） -->
+      <div class="pins" id="pins"></div>
+    </section>
+
+    <div class="devbar">
+      <span class="chip">提示：打卡记录保存在本机。</span>
+      <button class="btn ghost" id="clearVisited">清空本机打卡记录</button>
+    </div>
+  </main>
+
+  <!-- 详情弹窗 -->
+  <dialog id="landmark-dialog">
+    <div class="modal">
+      <div class="left"><img id="dlg-img" alt="" /></div>
+      <div class="right">
+        <h2 class="title" id="dlg-title">—</h2>
+        <div class="short" id="dlg-short">—</div>
+        <div class="full"  id="dlg-full">—</div>
+        <div class="actions">
+          <button class="btn primary" id="btnCheckin">打卡</button>
+          <button class="btn" id="btnNext" type="button">下一站</button>
+          <form method="dialog"><button class="btn ghost" type="submit">关闭</button></form>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <noscript>本网页需要启用 JavaScript 才能使用交互功能。</noscript>
+</body>
+</html>
